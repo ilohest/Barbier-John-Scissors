@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- pour l'échelle/zoom mobile-->
+    <title>
+      Le Barbier de Paris - Spécialiste de la barbe et des coupes de cheveux
+      pour homme.
+    </title>
+    <meta
+      name="description"
+      content="Un barbier traditionnel en plein Paris ! Nous vous recevons dans un cadre à l'ancienne pour s'occuper de votre barbe et de vos cheveux."
+    />
+    <link rel="icon" href="ressources/favicon.ico" type="image/x-icon" /> <!-- icone de l'onglet - svg fonctionne aussi ici -->
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&family=Open+Sans:wght@300;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+
+    <!-- Navigation et Hero -->
+    
+    <header id="accueil">
+      <nav class="main-nav">
+        <button class="nav-toggler" aria-controls="main-navlist" aria-expanded="false"> <!-- aria-controls: améliorer l'accessibilité globale de la page en établissant une relation entre un élément et un autre élément qui est contrôlé par le premier -->
+          <img
+            height="24" width="24"
+            src="ressources/hamburger.svg" 
+            alt="Ouvrir et fermer le menu"
+          />
+        </button>
+
+        <ul id="main-navlist">
+          <li><a href="#accueil">Accueil</a></li>
+          <li><a href="#valeurs">Nos valeurs</a></li>
+          <li><a href="#prestations">Prestations</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="hero">
+        <h1 class="main-title">Votre barbier traditionnel</h1>
+        <p class="main-subtitle">Rasoirs, peignes et savoir-faire.</p>
+
+        <a href="#prestations" class="hero-link hero-link-1">
+          <span>Prestations</span>
+          <img 
+            width="24" height="24"
+            src="ressources/pack/010-electric.svg" 
+            alt=""
+          />
+          <!-- alt vide pour ne pas avoir d'erreur d'acessibilité quand on fait un audit d'acessibilité: pas nécess iare de le remplir car déjà un texte dans le bouton -->
+        </a>
+        
+        <a href="#contact" class="hero-link hero-link-2">
+          <span>Contact</span>
+          <img 
+            width="24" height="24"
+            src="ressources/pack/003-location-pin.svg" 
+            alt=""
+          />
+        </a>
+
+        <a href="#valeurs" class="push-down-hero">
+          <img
+            width="24" height="24"
+            src="ressources/chevron-down.svg" 
+            alt="Aller à la section nos valeurs"
+          /> 
+        </a>
+      </div>
+    </header>
+
+    <!-- About section -->
+
+    <main>
+      <section class="about" id="valeurs">
+        <h2 class="section-title">
+          <span>Un style atemporel</span>
+          <img 
+            width="24" height="24"
+            src="ressources/pack/004-barber-1.svg" 
+            alt=""
+          />
+        </h2>
+
+        <p class="section-subtitle">
+          Patience et expertise à votre service
+        </p>
+
+        <div class="container about-content">
+          <div class="about-text">
+            <h3 class="heading-h3">
+              <img
+                width="24" height="24"
+                src="ressources/pack/024-shave.svg" 
+                alt=""
+              />
+              <span>Vous êtes entre de bonnes mains.</span>
+            </h3>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio dolores repudiandae quasi aliquid nesciunt eveniet, facere voluptatum expedita est porro pariatur alias labore praesentium delectus!
+            </p>
+
+            <h3 class="heading-h3">
+              <img 
+                width="24" height="24"
+                src="ressources/pack/001-barber.svg" 
+                alt=""
+              />
+              <span>L'art de tailler une barbe.</span>
+            </h3>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi quia neque voluptates quibusdam vero beatae, doloremque dolores deserunt. Dolor, laudantium repudiandae? Quia tempore ad debitis.
+            </p>
+          </div>
+
+          <div
+            class="about-slideshow"
+            role="region"
+            aria-roledescription="carousel"
+            aria-label="coupe de cheveux"
+          >
+            <div class="slideshow-images-container" role="group">
+              <img 
+                width="640" height="427"
+                src="ressources/slide-1.jpg"
+                aria-roledescription="slide"
+                alt="coiffeur coupant des cheveux avec un peigne et un ciseau"
+                class="active"
+              />
+              <img
+                width="640" height="427"
+                src="ressources/slide-2.jpg"
+                aria-roledescription="slide"
+                alt="coiffeur rasant une nuque"
+              />
+              <img
+                width="640" height="427"
+                src="ressources/slide-3.jpg"
+                aria-roledescription="slide"
+                alt="coiffeur utilisant un rasoir électrique"
+              />
+            </div>
+
+            <div
+              class="dots fade-slide-dots"
+              role="group"
+              aria-label="Boutons de controle"
+            >
+              <button
+                class="dot active"
+                data-fadeIndex="1" 
+                aria-label="Montrer l'image 1"
+                aria-disabled="true"
+              ></button><!-- data-fadeIndex="1": on met ce qu'on veut derrière data- : pour le retoruver facilement en JS (ce n'est pas de l'accessibilité) -->
+              <button
+                class="dot"
+                data-fadeIndex="2"
+                aria-label="Montrer l'image 2"
+                aria-disabled="false"
+              ></button>
+              <button
+                class="dot"
+                data-fadeIndex="3"
+                aria-label="Montrer l'image 3"
+                aria-disabled="false"
+              ></button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Prestation section -->
+
+      <section class="prestations" id="prestations">
+        <h2 class="section-title">
+          <span>Nos prestations</span>
+          <img
+            width="24" height="24"
+            src="ressources/pack/008-comb.svg" 
+            alt=""
+          />
+        </h2>
+        <p class="section-subtitle">À la carte</p>
+
+        <div class="container prestations-container">
+
+          <div class="prestations-card">
+            <h3 class="prestations-category-title">
+              <span>Le visage</span>
+              <img 
+                width="24" height="24"
+                src="ressources/pack/002-barber-pole.svg" 
+                alt=""
+              />
+            </h3>
+            <ul class="prestations-list">
+              <li>
+                <h4 class="heading-h4">La moustache - 8€</h4>
+                <p>
+                  <strong>Soins </strong>et <strong>taille de la moustache</strong>.
+                </p>
+                <p><em>Durée 30 minutes</em>.</p>
+              </li>
+
+              <li>
+                <h4 class="heading-h4">TAILLE SIMPLE - 12€</h4>
+                <p>
+                  Taille complète de la <strong>barbe</strong>, finitions
+                  <strong>cou</strong>, <strong>oreilles</strong>,
+                  <strong>nez</strong>.
+                </p>
+                <p><em>Durée 30 minutes</em>.</p>
+              </li>
+
+              <li>
+                <h4 class="heading-h4">LE COUPE-CHOU - 25€</h4>
+                <p>
+                  Rasage classique <strong>traditionnel</strong> au
+                  <strong>coupe choux </strong>(rasoir droit).
+                </p>
+                <p><em>Durée 45 minutes</em>.</p>
+              </li>
+
+              <li>
+                <h4 class="heading-h4">SOIN COMPLET - 35€</h4>
+                <p>
+                  <strong>Serviettes chaudes</strong>, <strong>soins</strong>,
+                  <strong>huiles</strong> et <strong>taille complète.</strong>
+                </p>
+                <p><em>Durée 50 minutes</em>.</p>
+              </li>
+            </ul>
+          </div>
+
+          <div class="prestations-card">
+            <h3 class="prestations-category-title">
+              <span>La coupe</span>
+              <img 
+                width="36" height="36"
+                src="ressources/pack/023-scissors.svg" 
+                alt="" 
+              />
+            </h3>
+            <ul class="prestations-list">
+              <li>
+                <h4 class="heading-h4">COUPE CLASSIQUE - 20€</h4>
+                <p>
+                  <strong>Shampoing</strong>, <strong>coupe</strong>,
+                  <strong>coiffage</strong>.
+                </p>
+                <p><em>Durée 45 minutes</em>.</p>
+              </li>
+              <li>
+                <h4 class="heading-h4">RASAGE DU CRANE AU COUP-CHOU - 20€</h4>
+                <p>
+                  Rasage au <strong>coupe-chou</strong>, <strong>soins</strong>.
+                </p>
+                <p><em>Durée 45 minutes</em>.</p>
+              </li>
+              <li>
+                <h4 class="heading-h4">UNDERCUT - 25€</h4>
+                <p>
+                  <strong>Shampoing</strong>,
+                  <strong>dégradé à l’ancienne</strong>.
+                </p>
+                <p><em>Durée 45 minutes</em>.</p>
+              </li>
+              <li>
+                <h4 class="heading-h4">COUPE BROSSE - 35€</h4>
+                <p><strong>Coupe militaire</strong> (Flat Top).</p>
+                <p><em>Durée 45 minutes</em>.</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Equipe section -->
+
+      <section class="team">
+        <h2 class="section-title">
+          <span>Voici l'équipe</span>
+          <img 
+            width="24" height="24"
+            src="ressources/pack/022-brush.svg"
+            alt=""
+          />
+        </h2>
+        <p class="section-subtitle">5 ans de bons et loyaux services</p>
+      
+        <div class="container cards-container">
+      
+          <div class="team-card">
+            <img
+              width="600" height="338"
+              src="ressources/barber1.jpg" 
+              alt="photo de John" 
+              class="profile-image"
+            />
+            <div class="card-content">
+              <div class="top-card-content">
+                <p class="card-name">John Scissors</p>
+                <a href="https://www.instagram.com/">
+                  <img 
+                    width="24" height="24"
+                    src="ressources/instagram.svg" 
+                    alt="Visiter la page instagram de John"
+                  />
+                </a>
+                <a href="https://twitter.com/?lang=fr">
+                  <img 
+                    width="24" height="24"
+                    src="ressources/twitter.svg" 
+                    alt="Visiter la page twitter de John"
+                  />
+                </a>
+              </div>
+      
+              <p class="card-description">25 ans de savoir-faire</p>
+            </div>
+          </div>
+      
+          <div class="team-card">
+            <img 
+              width="600" height="400"
+              src="ressources/barber2.jpg" 
+              alt="photo de Joe" 
+              class="profile-image"
+            />
+            <div class="card-content">
+              <div class="top-card-content">
+                <p class="card-name">Joe Lacoupe</p>
+                <a href="https://www.instagram.com/">
+                  <img 
+                    width="24" height="24"
+                    src="ressources/instagram.svg" 
+                    alt="Visiter la page instagram de Joe" 
+                  />
+                </a>
+                <a href="https://twitter.com/?lang=fr">
+                  <img 
+                    width="24" height="24"
+                    src="ressources/twitter.svg" 
+                    alt="Visiter la page twitter de Joe"
+                  />
+                </a>
+              </div>
+      
+              <p class="card-description">10 ans de savoir-faire</p>
+            </div>
+          </div>
+      
+          <div class="team-card">
+            <img 
+              width="600" height="900"
+              src="ressources/barber3.jpg" 
+              alt="photo d'Emma" 
+              class="profile-image" 
+            />
+            <div class="card-content">
+              <div class="top-card-content">
+                <p class="card-name">Emma Cut</p>
+                <a href="https://www.instagram.com/">
+                  <img 
+                    width="24" height="24"
+                    src="ressources/instagram.svg" 
+                    alt="Visiter la page instagram de Emma"
+                  />
+                </a>
+                <a href="https://twitter.com/?lang=fr">
+                  <img 
+                    width="24" height="24"
+                    src="ressources/twitter.svg" 
+                    alt="Visiter la page twitter de Emma"
+                  />
+                </a>
+              </div>
+      
+              <p class="card-description">5 ans de savoir-faire</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Testimonials -->
+
+      <section class="testimonial-section">
+
+        <div class="text-slideshow-container"><!-- ce container contient un container enfant qui va dépasser de sa largeur mais ce qui dépasse va etre caché avec overflow: hidden -->
+          <div class="sliding-container"> 
+
+            <div class="text-slide">
+              <p class="testimonial-text">Le meilleur barbier de Paris</p>
+              <p class="testimonial-author">John Doe</p>
+            </div>
+
+            <div class="text-slide">
+              <p class="testimonial-text">Toujours satisfait</p>
+              <p class="testimonial-author">Bob Doe</p>
+            </div>
+
+            <div class="text-slide">
+              <p class="testimonial-text">Rapide et efficace</p>
+              <p class="testimonial-author">Albert Doe</p>
+            </div>
+
+            <div class="text-slide">
+              <p class="testimonial-text">Jamais déçu</p>
+              <p class="testimonial-author">Kevin Doe</p>
+            </div>
+
+            <div class="text-slide">
+              <p class="testimonial-text">Le meilleur barbier de Paris</p>
+              <p class="testimonial-author">John Doe</p>
+            </div>
+
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Contact -->
+
+      <section id="contact" class="contact">
+
+        <h2 class="section-title">
+          <span>Nos adresses</span>
+          <img 
+            width="24" height="24" 
+            src="ressources/pack/003-location-pin.svg"
+            alt=""
+          />
+        </h2>
+        <p class="section-subtitle">
+          Nous sommes présents dans toute la capitale
+        </p>
+
+        <div class="container contact-content">
+          <div class="addresses">
+
+            <div class="address-block">
+              <p>13 Rue de la Couronne, 75554 Paris</p>
+              <p>04 42 38 42 39</p>
+              <p>Le_Barbier_Couronne</p>
+              <a href="https://www.instagram.com/">
+                <img
+                  width="24" height="24" 
+                  src="ressources/instagram.svg"
+                  alt="Visiter la page instagram du Barbier Leclerc"
+                />
+              </a>
+              <a href="https://www.instagram.com/">
+                <img
+                  width="24" height="24"
+                  src="ressources/facebook.svg"
+                  alt="Visiter la page facebook du Barbier Leclerc"
+                />
+              </a>
+              <a href="https://www.instagram.com/">
+                <img
+                  width="24" height="24"
+                  src="ressources/tiktok.svg"
+                  alt="Visiter la page tiktok du Barbier Leclerc"
+                />
+              </a>
+              <a href="https://www.instagram.com/">
+                <img
+                  width="24" height="24"
+                  src="ressources/twitter.svg"
+                  alt="Visiter la page twitter du Barbier Leclerc"
+                />
+              </a>
+            </div>
+
+            <div class="address-block">
+              <p>10 Avenue Leclerc, 75354 Paris</p>
+              <p>01 40 85 86 26</p>
+              <p>Le_Barbier_Leclerc</p>
+              <a href="#">
+                <img
+                  width="24" height="24"
+                  src="ressources/instagram.svg"
+                  alt="Visiter la page instagram du Barbier Leclerc"
+                />
+              </a>
+              <a href="#">
+                <img
+                  width="24" height="24"
+                  src="ressources/facebook.svg"
+                  alt="Visiter la page facebook du Barbier Leclerc"
+                />
+              </a>
+              <a href="#">
+                <img
+                  width="24" height="24"
+                  src="ressources/tiktok.svg"
+                  alt="Visiter la page tiktok du Barbier Leclerc"
+                />
+              </a>
+              <a href="#">
+                <img
+                  width="24" height="24"
+                  src="ressources/twitter.svg"
+                  alt="Visiter la page twitter du Barbier Leclerc"
+                />
+              </a>
+            </div>
+          </div>
+
+          <div class="schedule">
+            <div class="schedule-table">
+
+              <h3 class="heading-h3">Horaires d'ouverture</h3>
+              <p><span>Lundi</span> <span>09:00-19:00</span></p>
+              <p><span>Mardi</span> <span>09:00-19:00</span></p>
+              <p><span>Mercredi</span> <span>09:00-19:00</span></p>
+              <p><span>Jeudi</span> <span>09:00-19:00</span></p>
+              <p><span>Vendredi</span> <span>09:00-19:00</span></p>
+              <p><span>Samedi</span> <span>09:00-19:00</span></p>
+              <p><span>Dimanche</span> <span>Fermé</span></p>
+               
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+
+    <footer>
+      <a href="#"> Thème Barber, Tous droits réservés</a>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

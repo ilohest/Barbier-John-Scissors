@@ -1,0 +1,812 @@
+/* Design system */
+
+*,
+::before, /* sélecteur universel sélectionne tout sauf les pseudo-éléments */
+::after {
+  box-sizing: border-box; /* prend en compte le padding et border dans le calcul des hauteurs et des largeurs */
+  margin: 0;
+  padding: 0;
+}
+:root { /* pseudo-classe : on définit toutes nos variables css - spécificité supérieure par rapport à un sélecteur sur un élément html */
+  /* Palette */
+  --main-white: #dddddd;
+  --shade-white: #d3d3d3;
+  --main-black: #181818;
+  --main-yellow: #e6d28c;
+  --dark-yellow: #f4cb38;
+
+  /* Fonts */
+  --base-font: Open sans, sans-serif;
+  --title-font: Merriweather, serif;
+
+  /* Font-size */
+  --fs-14: 0.875rem; /* rem: valeur relative à la taille de la police de base du navigateur */
+  --fs-16: 1rem; /* 16px = 1 rem avec taille recommandée */
+  --fs-18: 1.125rem;
+  --fs-20: 1.25rem;
+  --fs-24: 1.5rem;
+  --fs-30: 1.875rem;
+  --fs-36: 2.25rem;
+  --fs-42: 2.625rem;
+  --fs-50: 3.125rem;
+  --fs-72: 4.5rem;
+}
+body {
+  font-family: var(--base-font); /* utiliser une variable css */
+}
+img {
+  height: auto; /* car sinon on passe au dessus avec height qu'on a mis dans le html */
+}
+
+/* Global utility classes */
+
+.section-title {
+  font-family: var(--title-font);
+  font-size: var(--fs-36);
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+}
+.section-title img {
+  width: 50px;
+  margin-left: 8px;
+}
+.section-subtitle {
+  font-size: var(--fs-20);
+  margin-bottom: 72px;
+  text-align: center;
+}
+.heading-h3 {
+  font-size: var(--fs-20);
+  display: flex;
+  align-items: center; 
+}
+.heading-h3 img {
+  width: 36px;
+  margin-right: 6px;
+}
+.heading-h4 {
+  font-size: var(--fs-18);
+}
+.heading-h3,
+.heading-h4 {
+  font-family: var(--title-font);
+  text-transform: uppercase;
+}
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+@media (max-width: 1024px) {
+  .section-title {
+    font-size: var(--fs-30);
+  }
+  .section-title img {
+    width: 42px;
+  }
+  .section-subtitle {
+    font-size: var(--fs-20);
+    margin-bottom: 52px;
+  }
+  .heading-h3 {
+    font-size: var(--fs-18);
+  }
+  .heading-h3 img {
+    width: 30px;
+  }
+  .container {
+    max-width: 700px;
+  }
+}
+@media (max-width: 750px) {
+  .section-title {
+    font-size: var(--fs-24);
+  }
+  .section-title img {
+    width: 30px;
+  }
+  .section-subtitle {
+    font-size: var(--fs-16);
+  }
+  .heading-h3 {
+    font-size: var(--fs-16);
+  }
+}
+@media (max-width: 525px) {
+  .section-title {
+    font-size: var(--fs-20);
+  }
+  .section-subtitle {
+    font-size: var(--fs-14);
+  }
+  .heading-h3 img {
+    width: 25px;
+  }
+}
+
+/* Navigation */
+
+.main-nav {
+  position: fixed; /*par défaut ne prend que la largeur du contenu donc il faut rajouter après width: 100% */ 
+  z-index: 99;
+  top: 0;
+  width: 100%;
+  padding: 16px;
+  background-color: var(--main-yellow);
+  border-bottom: 1px solid var(--main-black);
+}
+.main-nav img { /* hamburger */
+  width: 20px;
+}
+.main-nav ul {
+  display: flex;
+  justify-content: center; /* on centre sur x */
+  list-style-type: none;
+}
+.main-nav a {
+  margin: 0 12px;
+  padding: 8px;
+  border-radius: 2px;
+  color: var(--main-black);
+  font-weight: 700;
+  text-transform: uppercase; /* mieux pour les accents */
+  text-decoration-style: dotted;
+  text-underline-offset: 4px;
+}
+.main-nav a:hover {
+  background-color: var(--main-black);
+  color: var(--main-yellow);
+}
+.nav-toggler {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .main-nav a {
+    font-size: var(--fs-14);
+    padding: 8px;
+  }
+  .nav-toggler {
+    display: none;
+  }
+}
+@media (max-width: 525px) {
+  .main-nav {
+    display: flex;
+    order: 1;
+  }
+  .main-nav ul {
+    padding: 52px 0 20px;
+    display: none;
+    flex-direction: column;
+  }
+  .main-nav ul li {
+    margin: 6px 0;
+  }
+  .main-nav.active ul { /* cf. JS - à la fois quand un élément a les classes main-nav et active, alors, la liste à l'intérieur va prendre display: flex pcq de base il est caché (display: none;)*/
+    display: flex;
+  }
+  .nav-toggler {
+    order: 2; /* accessibilité : le button se trouve en position 2: après ul ==> voir quand on parcours le site avec tab vs si on met button apres ul dans html */
+    display: flex; /*  car il était en display:none */
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    align-self: baseline; /* aligné verticalement sur la ligne de base de son conteneur */
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  .nav-toggler img {
+    width: 20px;
+
+  }
+}
+
+/* Hero section */
+
+.hero {
+  min-height: 750px;
+  padding-top: 300px;
+  background-image: url(ressources/hero-background.jpg);
+  background-size: cover; /* couvre tout l'espace disponible quitte à cropper */
+  background-position: 50% 20%; /* on reste centrés à 50% de l'image sur X et 20% de l'image sur Y quand la taille de l'écran varie : le reste va etre croppé */
+  position: relative;
+  text-align: center;
+}
+.main-title {
+  font-family: var(--title-font);
+  font-size: var(--fs-72);
+  color: var(--main-white);
+  font-weight: 900;
+}
+.main-subtitle {
+  font-size: var(--fs-30);
+  margin-bottom: 28px;
+  color: var(--shade-white);
+  font-weight: 300;
+}
+.hero-link {
+  min-width: 155px; /* fonctionne juste pcq on a inline-flex - permet d'avoir 2 boutons de la meme taille */
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--main-black);
+  display: inline-flex; /* si on met juste flex, les boutons sont au dessus l'un de l'autre et prennent toute la largeur de leur parent - là on les met en ligne et ils gardent les propriétés flexbox*/
+  justify-content: center;
+  align-items: center;
+}
+.hero-link-1 {
+  background-color: var(--main-yellow);
+}
+.hero-link-1:hover {
+  background-color: var(--dark-yellow);
+}
+.hero-link-2 {
+  background-color: var(--main-white);
+  margin-left: 12px;
+}
+.hero-link-2:hover {
+  background-color: var(--shade-white);
+}
+.hero-link span {
+  text-decoration: underline dotted;
+  text-decoration-color: var(--main-black);
+  text-underline-offset: 4px;
+  position: relative; /* permet de rajouter du bottom sans que l'icone grandisse (= sans rajouter de contenu): fait uniquement monter le texte */
+  bottom: 2px;
+}
+.hero-link img {
+  margin-left: 2px;
+  width: 24px;
+}
+.hero-link span,
+.hero-link img {
+  pointer-events: none; /* cf JS - permet de nbe pas déclencher le clic que quand on clique sur span ou img mais seulement quand on clique sur le lien en lui meme  */
+}
+.push-down-hero {
+  display: none;
+}
+
+@media(max-width: 1024px){
+  .hero {
+    min-height: 600px;
+    padding-top: 250px;
+  }
+  .main-title {
+    font-size: var(--fs-50)
+  }
+  .main-subtitle {
+    font-size: var(--fs-30);
+  }
+}
+@media (max-width: 750px) {
+  .main-title {
+    font-size: var(--fs-36)
+  }
+  .main-subtitle {
+    font-size: var(--fs-24);
+  }
+  .hero-link {
+    min-width: 110px;
+    padding: 8px 6px;
+    font-size: var(--fs-14)
+  }
+  .hero-link img {
+    display: none;
+  }
+  .push-down-hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--main-black);
+    border: 1px solid var(--main-white);
+    position: absolute; /* parent est en position relative*/
+    bottom: 30px;
+    left: 50%; /* le pousse à 50% de la largeur du parent */
+    transform: translateX(-50%); /* le tire à -50% de sa propre largeur */
+  }
+  .push-down-hero img  {
+    width: 20px;
+    pointer-events: none;
+  }  
+}
+@media (max-width: 525px) {
+  .main-title {
+    font-size: var(--fs-24);
+  }
+  .main-subtitle {
+    font-size: var(--fs-20);
+  }  
+  .hero {
+    padding-top: 200px;
+    min-height: 500px;
+  }
+  .hero-link {
+    padding: 6px;
+  }
+}
+
+/* About */
+
+.about {
+  padding: 50px 20px 125px;
+  background-color: var(--main-white);
+}
+.about-content {
+  display: flex;
+}
+.about-text {
+  width: 60%; /* 60% de son parent about-content */
+  margin-right: 96px;
+}
+.about-text .heading-h3 {
+  margin-bottom: 12px; /* spécificité supérieure par rapport à ce qy'on a ndéjà fait dans Global utility classes */
+}
+.about-text p {
+  line-height: 1.4;
+}
+.about-text p:nth-child(2) { /* cible le deuxième paragraphe enfant <p> à l'intérieur de l'élément avec la classe .about-text*/
+  margin-bottom: 44px;
+}
+.about-slideshow {
+  width: 40%;
+}
+.slideshow-images-container {
+  margin: 12px 0;
+  display: grid;
+}
+.about-slideshow img {
+  grid-area: 1/1/2/2; /* grille avec 1 ligne et 1 colonne : toutes les images se superposent */
+  width: 100%;
+  border-radius: 3px;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+  opacity 0.3s ease-out,
+  visibility 0.3s ease-out;
+}
+.about-slideshow img.active { /* quand une image a la classe active cf JS */
+  opacity: 1;
+  visibility: visible;
+  z-index: 10; /*  l'élément avec le z-index le plus élevé sera placé au-dessus des autres éléments avec un z-index inférieur */
+}
+.dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.dot {
+  width: 15px;
+  height: 15px;
+  margin: 0 5px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 1px solid var(--main-black);
+  background-color: var(--main-white);
+}
+.dot.active {
+  background-color: var(--main-black);
+}
+
+@media (max-width: 1024px) {
+  .about {
+    padding: 50px 20px 100px;
+  }
+  .about-content { /* contient about-text et about-slideshow */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .about-text {
+    width:100%; /* 100% de la nouvelle colonne */
+    margin-right: 0;
+  }
+  .about-slideshow {
+    width: 80%;
+  }
+  .slideshow-images-container {
+    margin: 72px auto 12px; /* auto = gauche et droite */
+  }
+}
+@media (max-width: 750px) {
+  .about-text p {
+    font-size: var(--fs-14);
+  }
+}
+@media (max-width: 525px) {
+  .about {
+    padding: 40px 14px 100px;
+  }
+  .about-slideshow {
+    width: 100%;
+  }
+}
+
+/* Prestation section */
+
+.prestations {
+  padding: 50px 10px 150px;
+  background-color: var(--main-black);
+}
+.prestations .section-title,
+.prestations .section-subtitle {
+  color: var(--main-white);
+}
+.prestations .section-title img {
+  transform: rotate(5deg);
+}
+.prestations-container {
+  display: flex;
+  justify-content: center; /* le centre dans son parent */
+}
+.prestations-card {
+  width: 100%; /* se partagent l'espace de leur parent */
+  box-shadow: 0 5px 5px rgba(0,0,0,0.5);
+  padding: 36px 36px 96px;
+  background-color: var(--main-yellow);
+  border-radius: 5px;
+}
+.prestations-card:nth-child(1) {
+  margin-right: 28px;
+}
+.prestations-category-title {
+  font-family: var(--title-font);
+  font-size: var(--fs-30);
+  margin-bottom: 44px;
+  text-transform: uppercase;
+  color: var(--main-black);
+  font-weight: 900;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.prestations-category-title img {
+  width: 36px;
+  margin-left: 12px;
+  transform: rotateY(-180deg);
+}
+.prestations-list {
+  list-style-type: none;
+}
+.prestations-list h4 {
+  margin-bottom: 8px;
+}
+.prestations-list p {
+  font-weight: 500;
+  line-height: 1.4;
+}
+.prestations-list li:not(:last-of-type){ /* :not = pseudoclasse ==> tous les <li> sauf le dernier */
+  margin-bottom: 28px;
+}
+
+@media (max-width: 1024px) {
+  .prestations-container {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .prestations-card {
+    max-width: 530px;
+  }
+  .prestations-card:nth-child(1) {
+    margin-right: 0;
+    margin-bottom: 36px;
+  }
+}
+@media (max-width: 525px) {
+  .prestations {
+    padding: 50px 10px 90px;
+  }
+  .prestations-category-title {
+    font-size: var(--fs-20);
+    margin-bottom: 36px;
+  }
+  .prestations-category-title img {
+    width: 30px;
+  }
+  .prestations-card {
+    padding: 28px 28px 60px;
+  }
+  .prestations-card h4 {
+    font-size: var(--fs-16);
+  }
+  .prestations-list p {
+    font-size: var(--fs-14);
+  }
+}
+
+/* Equipe section */
+
+.team {
+  padding: 50px 10px 135px;
+  background-color: var(--main-white);
+}
+.team .section-subtitle {
+  margin-bottom: 28px;
+}
+.cards-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap; /* wrap les éléments à la ligne si pas assez de place */
+}
+.profile-image {
+  width: 100%;
+  height: 300px; /* taille en absolu */
+  object-fit: cover; /* force à garder les proportions: va croper pour que l'image prenne toute la place */
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.team-card {
+  flex-shrink: 0; /* indique à l'élément de ne pas rétrécir plus petit que sa taille intrinsèque si l'espace disponible devient insuffisant */
+  width: 300px;
+  color: var(--main-yellow);
+  box-shadow: 0 5px 5px rgba(0,0,0,0.4);
+  margin: 20px;
+  border-radius: 5px;
+  background-color: var(--main-black);
+  background-image: repeating-linear-gradient(
+      90deg,
+      hsla(57, 0%, 42%, 0.09) 0px,
+      hsla(57, 0%, 42%, 0.09) 1px,
+      transparent 1px,
+      transparent 60px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      hsla(57, 0%, 42%, 0.09) 0px,
+      hsla(57, 0%, 42%, 0.09) 1px,
+      transparent 1px,
+      transparent 60px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      hsla(57, 0%, 42%, 0.09) 0px,
+      hsla(57, 0%, 42%, 0.09) 1px,
+      transparent 1px,
+      transparent 10px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      hsla(57, 0%, 42%, 0.09) 0px,
+      hsla(57, 0%, 42%, 0.09) 1px,
+      transparent 1px,
+      transparent 10px
+    ),
+    linear-gradient(90deg, rgb(20, 20, 20), rgb(20, 20, 20));
+} 
+.card-content {
+  padding: 20px;
+}
+.top-card-content {
+  display: flex;
+  align-items: center;
+  margin-bottom: 36px;
+}
+.card-name {
+  font-size: var(--fs-20);
+}
+.top-card-content img {
+  width: 25px;
+  cursor: pointer;
+}
+.top-card-content a:nth-child(2) {
+  margin-left: auto; /* on est dans iun contanier flexible donc on met auto pour que ça s'ajuste au fur et à mesure */
+  margin-right: 8px;
+}
+
+@media (max-width: 1024px) {
+  .team {
+    padding: 50px 20px 100px;
+  }
+}
+@media (max-width: 750px) {
+  .team-card {
+    width: 100%;
+    max-width: 430px; /* largeur 100% mais on bloque */
+  }
+}
+
+/* Testimonials */
+
+.testimonial-section {
+  background-image: url(ressources/testimonial.jpg);
+  background-size: cover; /* prend tout l'espace disponible */
+  background-position: 0 80%; /* fixé à 0 de X et 80% de Y */
+  padding: 84px; /* rend la marge entre fond gris et l'image */
+}
+.text-slideshow-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  background-color: rgba(0,0,0,0.345);
+  overflow: hidden; /* on cache ce qui dépasse */
+}
+.sliding-container {
+  display: flex;
+  color: var(--main-white);
+  animation: carousel 16s ease-in-out infinite; /* applique l'animation appelée carousel à la classe .sliding-container - tourne à l'infini */
+}
+.text-slide {
+  flex-shrink: 0; /* indique à l'élément de ne pas rétrécir plus petit que sa taille intrinsèque si l'espace disponible devient insuffisant */
+  width: 100%; /* prend 100% d ela place du parent */
+  text-align: center;
+  padding: 44px;
+}
+.testimonial-text {
+  font-family: var(--title-font);
+  font-size: var(--fs-36);
+  margin-bottom: 6px;
+}
+.testimonial-author {
+  font-size: var(--fs-20);
+}
+
+@keyframes carousel { /* La règle @keyframes en CSS est utilisée pour créer des animations en définissant les étapes clés ou les pourcentages de progression de l'animation. */
+  0%,
+  20% {
+    transform: translateX(0); /* de 0 à 20% ne bouge pas */
+  }
+  25%, /* De 25% à 45% : Translation de l'élément vers la gauche de 100% de sa largeur d'origine.*/
+  45% {
+    transform: translateX(-100%);
+  }
+  50%,
+  70% {
+    transform: translateX(-200%);
+  }
+  75%,
+  95% {
+    transform: translateX(-300%);
+  }
+  100% {
+    transform: translateX(-400%);
+  }
+}
+
+@media (max-width: 1024px) {
+  .text-slideshow-container {
+    max-width: 750px;
+  }
+  .testimonial-section {
+    padding: 44px;
+  }
+  .testimonial-text {
+    font-size: var(--fs-30);
+  }
+  .testimonial-author {
+    font-size: var(--fs-16);
+  }
+}
+@media (max-width: 750px) {
+  .text-slideshow-container {
+    max-width: 600px;
+  }
+  .testimonial-text {
+    font-size: var(--fs-20);
+  }
+}
+@media (max-width: 525px) {
+  .text-slideshow-container {
+    max-width: 100%;
+    margin: 0;
+  }
+  .text-slide {
+    padding: 36px 0;
+  }
+  .testimonial-section {
+    padding: 44px 5px;
+  }
+  .testimonial-text {
+    font-size: var(--fs-20);
+  }
+}
+
+/* Contact */
+
+.contact {
+  padding: 50px 20px 150px;
+  background-color: var(--main-yellow);
+}
+.contact-content {
+  display: flex;
+  justify-content: center;
+}
+.address-block {
+  background-color: var(--main-black);
+  padding: 20px;
+  border-radius: 5px;
+  color: var(--main-yellow);
+  width: 350px;
+}
+.address-block:nth-child(1) { /* on sélectionne le premier bloc d'adresses */
+  margin-bottom: 16px; /* pour séparer les 2 blocs d'adresses */
+}
+.address-block p:nth-child(1) { /* premier paragraphe des blocs */
+  font-size: var(--fs-18);
+  margin-bottom: 12px;
+}
+.address-block p:nth-child(2) {
+  margin-bottom: 36px;
+}
+.address-block p:nth-child(3) {
+  margin-bottom: 12px;
+}
+.address-block img {
+  width: 25px;
+}
+.address-block a:not(:last-of-type) { /* tous les a mais pas le dernier : séparer les icones media */
+  margin-right: 10px;
+}
+.schedule {
+  margin-left: 44px;
+}
+.schedule-table p {
+  display: flex;
+  justify-content: space-between;
+  margin: 12px 0;
+  padding-bottom: 6px;
+}
+.schedule-table p:not(:last-of-type) {
+  border-bottom: 1px solid var(--main-black);
+}
+.schedule-table p span:nth-child(1) { /* premier span des p */
+  font-weight: 900;
+}
+
+@media (max-width: 750px) {
+  .contact-content {
+    flex-direction: column;
+  }
+  .address-block {
+    width: auto;
+  }
+  .schedule {
+    margin: 0;
+  }
+  .schedule-table,
+  .address-block {
+    max-width: 450px; /* par rapport au parent */
+    margin: 0 auto;
+  }
+  .addresses {
+    margin-bottom: 36px;
+  }
+}
+@media (max-width: 525px) {
+  .contact {
+    padding: 30px 20px 90px;
+  }
+  .addresses .address-block p, /* il faut lettre .adresses car sinon .address-block p:nth-child(1) a une plus grande spécificité et rien ne se passe : 0.2.1 vs 0.1.1 si on ne met pas adresses */
+  .schedule p {
+    font-size: var(--fs-14);
+  }
+  .address-block img {
+    width: 20px;
+  }
+  .address-block a:not(:last-of-type) {
+    margin-right: 6px;
+  }
+}
+
+/* Footer */
+
+footer {
+  padding: 12px;
+  text-align: center;
+  background-color: var(--main-black);
+}
+footer a {
+  color: var(--main-white);
+}
+
+
