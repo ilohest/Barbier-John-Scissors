@@ -12,6 +12,12 @@ function toggleNav(){
     if(togglerImg.src.includes("hamburger")){
         togglerImg.src = "ressources/cross.svg";
         navToggler.ariaExpanded = true; /* acessibilité */
+
+        navLinks.forEach(link => { /* refermer le menu quandon clique sur un lien */
+            link.addEventListener("click", () => {
+            nav.classList.remove("active");
+            navToggler.ariaExpanded = false;
+        })})
     }
     else {
         togglerImg.src = "ressources/hamburger.svg";
