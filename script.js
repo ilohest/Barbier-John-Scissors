@@ -30,6 +30,8 @@ function toggleNav(){
 const slideshowImages = document.querySelectorAll(".slideshow-images-container img");
 const fadeSlideDots = document.querySelectorAll(".dot");
 
+// Au clic & slideshow automatique : 
+
 fadeSlideDots.forEach(dot => dot.addEventListener("click", fadeSlideshow))
 
 let currentFadeIndex = 1;
@@ -59,6 +61,45 @@ function fadeSlideshow(e){
 }
 
 fadeIntervalID = window.setInterval(fadeSlideshow, 3500) /* **slideshow automatique** La fonction window.setInterval() exécute une fonction callback fadeSlideshow toutes les 3500ms et retourne un id fadeIntervalID qui correspond à cet intervalle */
+
+// Au slide gauche/droite :
+
+    slideshowImages.forEach(image => {
+        let touchStartX = 0; /* pour suivre les coordonnées horizontales du point de départ et du point d'arrivée du glissement tactile */
+        let touchEndX = 0;
+    
+        image.addEventListener('touchstart', handleTouchStart, false); /* handleTouchStart: nous enregistrons la position horizontale de départ du toucher initial de l'utilisateur */
+        image.addEventListener('touchmove', handleTouchMove, false); /* handleTouchMove: nous mettons à jour la position horizontale de l'événement de mouvement tactile pour suivre les mouvements du doigt de l'utilisateur*/
+        image.addEventListener('touchend', handleTouchEnd, false); /* handleTouchEnd: nous comparons les positions touchStartX et touchEndX pour déterminer la direction du glissement*/
+    
+        function handleTouchStart(e) {
+            touchStartX = e.touches[0].clientX;
+        }
+    
+        function handleTouchMove(e) {
+            touchEndX = e.touches[0].clientX;
+        }
+    
+        function handleTouchEnd() {
+            if (touchEndX < touchStartX) {
+                // glissement vers la droite, appeler la fonction pour afficher l'image suivante
+                currentFadeIndex++;
+                if (currentFadeIndex > slideshowImages.length) {
+                    currentFadeIndex = 1;
+                }
+            } else if (touchEndX > touchStartX) {
+                // glissement vers la gauche, appeler la fonction pour afficher l'image précédente
+                currentFadeIndex--;
+                if (currentFadeIndex < 1) {
+                    currentFadeIndex = slideshowImages.length;
+                }
+            }
+            fadeSlideshow(); // appel de la fonction pour mettre à jour l'affichage
+            touchStartX = 0;
+            touchEndX = 0;
+        }
+    });
+
 
 // Smooth scroll links
 
