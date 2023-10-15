@@ -81,6 +81,9 @@ fadeIntervalID = window.setInterval(fadeSlideshow, 3500) /* **slideshow automati
         }
     
         function handleTouchEnd() {
+            slideshowImages[currentFadeIndex - 1].classList.remove("active");
+            fadeSlideDots[currentFadeIndex - 1].classList.remove("active");
+            fadeSlideDots[currentFadeIndex - 1].ariaDisabled = "false";
             if (touchEndX < touchStartX) {
                 // glissement vers la droite, appeler la fonction pour afficher l'image suivante
                 currentFadeIndex++;
@@ -94,7 +97,9 @@ fadeIntervalID = window.setInterval(fadeSlideshow, 3500) /* **slideshow automati
                     currentFadeIndex = slideshowImages.length;
                 }
             }
-            fadeSlideshow(); // appel de la fonction pour mettre à jour l'affichage
+            slideshowImages[currentFadeIndex - 1].classList.add("active");
+            fadeSlideDots[currentFadeIndex - 1].classList.add("active");
+            fadeSlideDots[currentFadeIndex - 1].ariaDisabled = "true";
             touchStartX = 0;
             touchEndX = 0;
         }
