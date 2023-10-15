@@ -84,6 +84,10 @@ fadeIntervalID = window.setInterval(fadeSlideshow, 3500) /* **slideshow automati
             slideshowImages[currentFadeIndex - 1].classList.remove("active");
             fadeSlideDots[currentFadeIndex - 1].classList.remove("active");
             fadeSlideDots[currentFadeIndex - 1].ariaDisabled = "false";
+
+            clearInterval(fadeIntervalID);
+            fadeIntervalID = window.setInterval(fadeSlideshow, 3500);
+            
             if (touchEndX < touchStartX) {
                 // glissement vers la droite, appeler la fonction pour afficher l'image suivante
                 currentFadeIndex++;
